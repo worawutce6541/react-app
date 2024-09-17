@@ -41,7 +41,7 @@ function Register() {
       <div className="max-w-md w-full mx-auto">
         <div className="text-3xl font-bold text-gray-900 mt-2 text-center">Register</div>
         <div className="p-8 bg-white mt-6 rounded-lg shadow-md">
-           <form>
+           <form onClick={handleSubmit} >
             <div className="mb-5">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-600">Email</label>
               <input
