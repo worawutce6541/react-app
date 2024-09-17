@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -41,7 +42,8 @@ function Register() {
       <div className="max-w-md w-full mx-auto">
         <div className="text-3xl font-bold text-gray-900 mt-2 text-center">Register</div>
         <div className="p-8 bg-white mt-6 rounded-lg shadow-md">
-           <form onClick={handleSubmit} >
+            { error && <p className="text-red-500">{error}</p> }
+           <form onSubmit={handleSubmit}>
             <div className="mb-5">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-600">Email</label>
               <input
