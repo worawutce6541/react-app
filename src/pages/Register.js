@@ -1,8 +1,43 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
-    return ( <>
-<div className="flex items-center justify-center min-h-screen bg-gray-100">
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if(password != confirmPassword) {
+        setError('รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่');
+        return;
+      } else {
+      try {
+        const response = await axios.post('http://localhost:4000/register', {
+          email,
+          password,
+          name
+        });
+        console.log('User registered:', response.data);
+        // Redirect or clear form here after success
+        alert('สมัครสมาชิก : ' + response.data);
+        setEmail('');
+        setPassword('');
+        setName('');
+        navigate('/login');
+      } catch (error) {
+        setError(error.response.data);
+        console.error('Registration error:', error.response.data);
+      }
+    }
+    };
+
+    return (
+    <>
+     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full mx-auto">
         <div className="text-3xl font-bold text-gray-900 mt-2 text-center">Register</div>
         <div className="p-8 bg-white mt-6 rounded-lg shadow-md">
@@ -12,6 +47,8 @@ function Register() {
               <input
                 type="email"
                 id="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none"
                 required
               />
@@ -20,6 +57,8 @@ function Register() {
               <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-600">Password</label>
               <input
                 type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
                 id="password"
                 className="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none"
                 required
@@ -29,6 +68,8 @@ function Register() {
               <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-600">Confirm Password</label>
               <input
                 type="password"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
                 id="confirm-password"
                 className="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none"
                 required
@@ -39,6 +80,8 @@ function Register() {
               <input
                 type="text"
                 id="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
                  className="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none"
                 required
               />
