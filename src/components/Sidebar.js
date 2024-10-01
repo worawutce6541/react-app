@@ -14,6 +14,9 @@ export default function Sidebar() {
                 <Link to="/user" className="block py-3 px-4 hover:bg-gray-700">
                     Users
                 </Link>
+                <Link to="/account" className="block py-3 px-4 hover:bg-gray-700">
+                    จัดการบัญชี
+                </Link>
                 <Link to="/about" className="block py-3 px-4 hover:bg-gray-700">
                     About
                 </Link>
